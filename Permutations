@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<vector<int>> sol;
+    vector<vector<int>> permute(vector<int>& nums) {
+        permutee(0,nums);
+        return sol;
+    }
+    void permutee(int index,vector<int>& n)
+    {
+        if(index==n.size())
+        {
+            sol.push_back(n);
+            return;
+        }
+
+        for(int i=index;i<n.size();i++)
+        {
+            swap(n[index],n[i]);
+            permutee(index+1,n);
+            swap(n[index],n[i]);
+        }
+    }
+
+
+
+
+};
