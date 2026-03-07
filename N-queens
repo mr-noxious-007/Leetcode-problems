@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<string> hlo;
+    vector<vector<string>> result;
+    vector<vector<string>> solveNQueens(int n) {
+        hlo.assign(n,string(n,'.'));
+        solve(0,n);
+        return result;
+        
+    }
+    
+    void solve(int r,int n)
+    {
+        if(r==n)
+        {
+            result.push_back(hlo);
+            return ;
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(isSafe(r,i,n))
+            {
+                hlo[r][i]='Q';
+                solve(r+1,n);
+                hlo[r][i]='.';
+            }
+        }
+    }
+  bool isSafe(int row, int col, int n) {
+    // check upper-left diagonal
+    for(int i=row-1,j=col-1;i>=0&&j>=0;i--,j--) {
+        if(hlo[i][j]=='Q') return false;
+    }
+    // check upper-right diagonal
+    for(int i=row-1,j=col+1;i>=0&&j<n;i--,j++) {
+        if(hlo[i][j]=='Q') return false;
+    }
+    // check column
+    for(int i=0;i<row;i++) {
+        if(hlo[i][col]=='Q') return false;
+    }
+    return true;
+}
+
+    
+};
