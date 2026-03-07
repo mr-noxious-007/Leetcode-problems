@@ -1,0 +1,30 @@
+class Solution {
+public:
+    char findKthBit(int n, int k) {
+          if(n==1)
+          {
+            return '0';
+          }
+          int len=pow(2,n)-1;
+          int mid=(len/2)+1;
+
+          if(k==mid)
+          {
+            return '1';
+          }
+          if(k<mid)
+          {
+            return findKthBit(n-1,k);
+          }
+          char c=findKthBit(n-1,len-k+1);
+          return (c=='1')?'0':'1';
+
+
+    }
+};
+
+// ->example s3=0001111
+// ->the  string would be 000+1+111
+// ->then mid==k then the bit is 1
+// ->if k<mid do the same thing with n-1
+// ->if not do the thing with the mirrored bit (len-k+1) and invert the answer 
