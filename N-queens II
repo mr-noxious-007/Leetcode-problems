@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<string> hlo;
+    vector<vector<string>> result;
+    int totalNQueens(int n) {
+        hlo.assign(n,string(n,'.'));
+        solve(0,n);
+        return result.size();
+    }
+    void solve(int row,int n)
+    {
+        if(row==n)
+        {
+            result.push_back(hlo);
+            return;
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(isSafe(row,i,n))
+            {
+                hlo[row][i]='Q';
+                solve(row+1,n);
+                hlo[row][i]='.';
+            }
+        }
+    }
+    bool isSafe(int row,int col,int n)
+    {
+        for(int i=row-1, j=col-1;i>=0&&j>=0;i--,j--)
+        {
+            if(hlo[i][j]=='Q')
+            {
+                return false;
+            }
+            
+        }
+        for(int i=row-1,j=col+1;i>=0&&j<n;i--,j++)
+        {
+            if(hlo[i][j]=='Q')
+            {
+                return  false;
+            }
+        }
+        for(int i=0;i<row;i++)
+        {
+            if(hlo[i][col]=='Q')
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+};
