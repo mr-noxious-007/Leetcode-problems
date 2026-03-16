@@ -1,0 +1,62 @@
+//Better solution for Longest subarray of sum K 
+//Best solution for Longest subarray of sum K with negatives
+
+int L(vector<int> a,int k)
+
+{
+    int sum=0;
+    map<int,int> mp;
+    int maxLen=0;
+    for(int i=0;i<a.size();i++)
+    {
+        sum+=a[i];
+        if(sum==k)
+        {
+            maxLen=max(maxLen,i+1);
+            
+        }
+        int rem=sum-k;
+        if(sum>k && mp.find(rem)!=mp.end())
+        {
+            int l=i-mp[rem];
+            maxLen=max(maxLen,l);
+            
+        }
+        if(mp.find(sum)==mp.end())
+        {
+            mp[sum]=i;
+        }
+    }
+    return maxLen;
+}
+
+
+//Best solution for Longest subarray with only positives
+
+int L(vector<int> a,int k)
+{
+   int left=0;
+   int right=0;
+   int maxLen=0;
+   int sum=a[0];
+   while(right<a.size())
+   {
+       
+       while(left<=right && sum>k)
+       {
+           sum-=a[left];
+           left++;
+       }
+       if(sum==k)
+       {
+           maxLen=max(maxLen,right-left+1);
+       }
+       
+       right++;
+       if(right<a.size())
+       {
+           sum+=a[right];
+       }
+   }
+   return maxLen;
+}
