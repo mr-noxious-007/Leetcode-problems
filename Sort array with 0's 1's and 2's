@@ -1,0 +1,70 @@
+//Brute 
+
+//Use any sorting algorithm or sort function
+
+Better Solution
+
+void sort(vector<int> &a)
+{
+    int c0=0;
+    int c1=0;
+    int c2=0;
+    for(int i=0;i<a.size();i++)
+    {
+        if(a[i]==0)
+        {
+            c0++;
+        }
+        else if(a[i]==1)
+        {
+            c1++;
+        }
+        else
+        {
+            c2++;
+        }
+    }
+    for(int q=0;q<c1;q++)
+    {
+        a[q]=0;
+    }
+    for(int j=c1;j<c1+c0;j++)
+    {
+        a[j]=1;
+    }
+    for(int k=c1+c0;k<a.size();k++)
+    {
+        a[k]=2;
+    }
+}
+
+
+Optimal solution( T.C->O(N), S.C->0(1))
+
+void sort(vector<int> &a)
+{
+   int low=0;
+   int mid=0;
+   int high=a.size()-1;
+   
+   while(mid<=high)
+   {
+       if(a[mid]==0)
+       {
+           swap(a[low],a[mid]);
+           low++;
+           mid++;
+       }
+       else if(a[mid]==1)
+       {
+           mid++;
+       }
+       else
+       {
+           swap(a[mid],a[high]);
+           high--;
+       }
+   }
+}
+
+
