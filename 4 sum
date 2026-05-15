@@ -1,0 +1,50 @@
+4 sum 
+
+Question:
+Given an array , 4 differently indexed values equal to the target is taken , There may be more quadruplets so consider only unique ones and display them
+
+That code is written like this to avoid integer overflow:
+
+long long sum = nums[i] + nums[j];
+sum += nums[k];
+sum += nums[l];
+
+instead of:
+
+long long sum = nums[i] + nums[j] + nums[k] + nums[l];
+
+Because in C++:
+
+nums[i], nums[j], etc. are int
+so the additions happen as int first
+overflow can happen before storing into long long
+
+Brute force :
+
+We simply use four for loops , and use set to give unique solution and convert to vector
+vector<vector<int>> x(st.begin(),st.end());
+
+T.C->O(n4)
+S.C->O(no of quadruplets)*2  #for both set and vector
+
+Better sol:
+
+We here consider 
+        nums[l]=target-(nums[i]+nums[j]+nums[k])
+
+consider three pointers then push the fourth value inside hashset , if the value we find exist then we can consider that there exist a quadruplet of the target 
+
+We use three loops(same concept of the three sum ), the sum them and look for (target - sum) in the hashset , if it exist push them in a vector, sort them and add to the set and add the kth element to the hashset , if not just add the k th element to the hashset .
+
+T.C ->O(n3*logm)
+S.C->O(no of quadruplets)*2+O(N)
+
+Optimal solution:(sort the array first)
+
+We have four pointers , where i , j are fixed and k and l can be moved. If the sum gets greater than the target reduce k untill we get the next smalller elementt from backward, and move j to the right if we have sum less than target . If we got sum==target then add to ans vector and move j and k to different elements . 
+
+When k and l crosses we then move j to a new element in right and take k=j+1 and l=n-1
+
+When j goes till n-1 we then move i to the next element in right 
+
+T.C->O(n3)
